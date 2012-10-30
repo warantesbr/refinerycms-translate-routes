@@ -1,4 +1,3 @@
-require 'rails-translate-routes'
 RailsTranslateRoutes::Translator.module_eval do
 
   # Translate a specific RouteSet, usually Rails.application.routes, but can
