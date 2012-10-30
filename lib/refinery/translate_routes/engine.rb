@@ -7,6 +7,9 @@ module Refinery
       engine_name :refinery_translate_routes
 
       after_inclusion do
+
+        require 'rails-translate-routes'
+
         Dir[root.join('app', 'decorators', '**', '*_decorator.rb')].each do |decorator|
           ::Rails.application.config.cache_classes ? require(decorator) : load(decorator)
         end
