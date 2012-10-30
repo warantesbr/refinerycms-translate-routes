@@ -3,7 +3,7 @@ source "http://rubygems.org"
 gemspec
 
 gem 'refinerycms', '~> 2.0.3'
-gem 'rails-translate-routes'
+gem 'rails-translate-routes', '0.1.3'
 
 # Database Configuration
 platforms :jruby do
