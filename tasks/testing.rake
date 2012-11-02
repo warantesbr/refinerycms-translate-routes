@@ -3,8 +3,8 @@ namespace :refinery do
     # Put any code in here that you want run when you test this extension against a dummy app.
     # For example, the call to require your gem and start your generator.
     task :setup_extension do
-      require 'refinery/translate_routes'
-      Refinery::TranslateRoutesGenerator.start %w[--quiet]
+      require 'fileutils'
+      FileUtils.cp "../fixtures/routes.yml", "config/locales/routes.yml"
     end
   end
 end
