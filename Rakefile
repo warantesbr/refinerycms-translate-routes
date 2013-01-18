@@ -19,4 +19,12 @@ Refinery::Testing::Railtie.load_dummy_tasks(ENGINE_PATH)
 load File.expand_path('../tasks/testing.rake', __FILE__)
 load File.expand_path('../tasks/rspec.rake', __FILE__)
 
-task :default => :spec
+task :default do
+
+  ENV['RAILS_ENV'] ||= 'test'
+  Rake::Task['refinery:testing:dummy_app'].invoke
+  Dir.chdir  File.expand_path("..", __FILE__)
+  Rake::Task['spec'].invoke
+  Rake::Task['refinery:testing:clean_dummy_app'].invoke
+
+end
