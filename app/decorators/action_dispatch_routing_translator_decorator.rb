@@ -4,7 +4,7 @@ ActionDispatch::Routing::Translator.module_eval do
 
     def translate_from_file(file_path, options = {})
       file_path = %w(config locales routes.yml) if file_path.blank?
-      return unless File.exist?(file_path)
+      return unless File.exist?("#{Rails.root}/#{file_path}")
       engine = options[:engine] || Rails.application
       r = RailsTranslateRoutes.init_from_file(file_path)
       r.prefix_on_default_locale = true if options && options[:prefix_on_default_locale] == true

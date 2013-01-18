@@ -1,3 +1,5 @@
 #rvm
 .rvmrc
 .rvmrc.*
+
+spec/dummy

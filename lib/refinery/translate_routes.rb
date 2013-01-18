@@ -2,6 +2,8 @@ require 'refinerycms-core'
 
 module Refinery
 
+  autoload :TranslateRoutesGenerator, 'generators/refinery/translate_routes/translate_routes_generator'
+
   module TranslateRoutes
     require 'refinery/translate_routes/engine'
 
