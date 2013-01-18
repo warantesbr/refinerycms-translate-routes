@@ -22,9 +22,15 @@ load File.expand_path('../tasks/rspec.rake', __FILE__)
 task :default do
 
   ENV['RAILS_ENV'] ||= 'test'
-  Rake::Task['refinery:testing:dummy_app'].invoke
-  Dir.chdir  File.expand_path("..", __FILE__)
+  new_dumy_app = File.exists? File.expand_path('../spec/dummy', __FILE__)
+  unless new_dumy_app
+    puts "Dummy app not found"
+    Rake::Task['refinery:testing:dummy_app'].invoke
+    Dir.chdir  File.expand_path("..", __FILE__)
+  end
+
   Rake::Task['spec'].invoke
-  Rake::Task['refinery:testing:clean_dummy_app'].invoke
+
+  Rake::Task['refinery:testing:clean_dummy_app'].invoke unless new_dumy_app
 
 end
