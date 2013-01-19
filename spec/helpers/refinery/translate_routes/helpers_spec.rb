@@ -3,7 +3,7 @@ require "spec_helper"
 module Refinery
   describe "TranslateRoutes" do
 
-    let(:host){ "dummy.net" }
+    let(:host){ "test.host" }
     let(:page_title){ "dummy page" }
     let(:page){ Factory.create :page, title: page_title }
 
@@ -18,7 +18,7 @@ module Refinery
         end
 
         context "page url helper output" do
-          it { refinery.page_url(page, host: host).should eq("http://#{host}/pages/#{page.slug}") }
+          it { refinery.page_url(page).should eq("http://#{host}/pages/#{page.slug}") }
         end
 
       end
@@ -32,7 +32,7 @@ module Refinery
         end
 
         context "page url helper output" do
-          it { refinery.page_url(page, host: host).should eq("http://#{host}/es/paginas/#{page.slug}") }
+          it { refinery.page_url(page).should eq("http://#{host}/es/paginas/#{page.slug}") }
         end
 
       end
