@@ -20,7 +20,6 @@ In fact, if no config/locale/route.yml is created you will have some errors in y
 
 ## Known Bugs
 
-Issue #1: _url helpers don't work properly
 Issue #2: some admin routes are getting translated while other don't
 
 ## Wishlist
