@@ -39,7 +39,10 @@ describe 'TranslateRoutes' do
     context "when using url helpers" do
       context "when visit page with default path" do
 
-        before { visit "/pages/#{page_with_url.slug}" }
+        before do
+          I18n.locale = :en
+          visit "/pages/#{page_with_url.slug}"
+        end
 
         it { page.should have_content("/pages/#{page_with_url.slug}") }
 
@@ -47,7 +50,10 @@ describe 'TranslateRoutes' do
 
       context "when visit page with translated path" do
 
-        before { visit "/es/paginas/#{page.slug}" }
+        before do
+          I18n.locale = :es
+          visit "/es/paginas/#{page_with_url.slug}"
+        end
 
         it { page.should have_content("/es/paginas/#{page_with_url.slug}") }
 
