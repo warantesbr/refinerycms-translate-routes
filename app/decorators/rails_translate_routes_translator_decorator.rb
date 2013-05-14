@@ -94,15 +94,20 @@ RailsTranslateRoutes::Translator.module_eval do
   def translations_for route
     translated_routes = []
 
-    available_locales.map do |locale|
-      translated_routes << translate_route(route, locale) if  locale != I18n.default_locale.to_s
+    # We keep untranslated all the /refinery/* routes
+    if route.path.spec.to_s.start_with?('/refinery')
+      translated_routes << untranslated_route(route)
+    else
+      available_locales.map do |locale|
+        translated_routes << translate_route(route, locale) if  locale != I18n.default_locale.to_s
+      end
+
+      translated_routes << translate_route(route, I18n.default_locale.to_s)
+
+      # add untranslated_route without url helper if we want to keep untranslated routes
+
+      translated_routes << untranslated_route(route) if @keep_untranslated_routes
     end
-
-    translated_routes << translate_route(route, I18n.default_locale.to_s)
-
-    # add untranslated_route without url helper if we want to keep untranslated routes
-    # We also keep untranslated all the /refinery/* routes
-    translated_routes << untranslated_route(route) if @keep_untranslated_routes ||  route.path.spec.to_s.start_with?('/refinery')
     translated_routes
   end
 
