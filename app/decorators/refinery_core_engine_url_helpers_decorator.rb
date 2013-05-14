@@ -1,7 +1,8 @@
 # We have to define a method missing handler for Refinery::Core::Engine.routes.url_helpers so the paths and urls are searched with the I18n.locale info
 Refinery::Core::Engine.routes.url_helpers.class.send :define_method, :method_missing do |method_name, *args|
 
-  new_method_name = method_name.to_s.gsub(/_path$/, "_#{I18n.locale}_path")
+  new_method_name = method_name.to_s.gsub(/(_#{I18n.locale})?_path$/, "_#{I18n.locale}_path")
+
   new_method_name.gsub!(/_url$/, "_#{I18n.locale}_url")
   new_method_name = new_method_name.to_sym
 
