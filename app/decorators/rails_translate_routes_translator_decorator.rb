@@ -114,7 +114,7 @@ RailsTranslateRoutes::Translator.module_eval do
 
     else
 
-      available_locales.map do |locale|
+      Refinery::I18n.locales.keys.map(&:to_s).map do |locale|
         translated_routes << translate_route(route, locale) if  locale != I18n.default_locale.to_s
       end
 
