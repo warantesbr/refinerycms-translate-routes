@@ -79,7 +79,12 @@ RailsTranslateRoutes::Translator.module_eval do
               options = args.extract_options!
               args << url_options.merge((options || {}).symbolize_keys)
             end
-            route_set.url_helpers.send "#{old_name}_#{locale_suffix(I18n.locale)}_#{suffix}", *args
+            begin
+              route_set.url_helpers.send "#{old_name}_#{locale_suffix(I18n.locale)}_#{suffix}", *args
+            rescue ActionController::RoutingError => e
+              send "#{old_name}_#{locale_suffix(I18n.locale)}_#{suffix}", *args
+            end
+
           end
 
         end
