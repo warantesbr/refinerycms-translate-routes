@@ -74,13 +74,18 @@ RailsTranslateRoutes::Translator.module_eval do
       containers.each do |helper_container|
         helper_container.module_eval do
 
-            self.send :define_method, new_helper_name.to_sym do |*args|
-              if suffix == "url"
-                options = args.extract_options!
-                args << url_options.merge((options || {}).symbolize_keys)
-              end
-              route_set.url_helpers.send "#{old_name}_#{locale_suffix(I18n.locale)}_#{suffix}", *args
+          self.send :define_method, new_helper_name.to_sym do |*args|
+            if suffix == "url"
+              options = args.extract_options!
+              args << url_options.merge((options || {}).symbolize_keys)
             end
+            begin
+              route_set.url_helpers.send "#{old_name}_#{locale_suffix(I18n.locale)}_#{suffix}", *args
+            rescue ActionController::RoutingError => e
+              send "#{old_name}_#{locale_suffix(I18n.locale)}_#{suffix}", *args
+            end
+
+          end
 
         end
       end
